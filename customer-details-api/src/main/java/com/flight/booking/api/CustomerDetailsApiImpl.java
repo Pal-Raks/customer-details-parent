@@ -7,4 +7,5 @@ public class CustomerDetailsApiImpl implements CustomerDetailsApi {
     public String test(){
         return "hi";
     }
+
 }
