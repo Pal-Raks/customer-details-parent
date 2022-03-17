@@ -15,9 +15,9 @@ import javax.validation.Valid;
 public interface CustomerDetailsApi {
 
     @GetMapping(value = "/details",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getCustomerDetails();
+    ResponseEntity<String> getCustomerDetails();
 
     @PostMapping(value = "/registration",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createCustomerDetails(@RequestBody @Valid CustomerDetailsReq customerDetailsReq);
+    ResponseEntity<String> createCustomerDetails(@RequestBody @Valid CustomerDetailsReq customerDetailsReq);
 
 }

@@ -18,8 +18,8 @@ public class CustomerEntity implements Serializable {
     @GeneratedValue
     private long id;
 
-    @Column(nullable=false, unique=true)
-    private String userId;
+    @Column(nullable=false, unique=true, name ="customer_id")
+    private String customerId;
 
     @Column(nullable = false, length=50, name = "customer_name")
     private String customerName;
@@ -32,12 +32,12 @@ public class CustomerEntity implements Serializable {
     @Column(nullable=false, unique=true,name ="encrypted_password")
     private String encryptedPassword;
 
-    public String getUserId() {
-        return userId;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public String getCustomerName() {
@@ -72,24 +72,25 @@ public class CustomerEntity implements Serializable {
         this.encryptedPassword = encryptedPassword;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerEntity that = (CustomerEntity) o;
-        return id == that.id && Objects.equals(userId, that.userId) && Objects.equals(customerName, that.customerName) && Objects.equals(customerEmail, that.customerEmail) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(encryptedPassword, that.encryptedPassword);
+        return id == that.id && Objects.equals(customerId, that.customerId) && Objects.equals(customerName, that.customerName) && Objects.equals(customerEmail, that.customerEmail) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(encryptedPassword, that.encryptedPassword);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, customerName, customerEmail, phoneNumber, encryptedPassword);
+        return Objects.hash(id, customerId, customerName, customerEmail, phoneNumber, encryptedPassword);
     }
 
     @Override
     public String toString() {
         return "CustomerEntity{" +
                 "id=" + id +
-                ", userId='" + userId + '\'' +
+                ", customerId='" + customerId + '\'' +
                 ", customerName='" + customerName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
                 ", phoneNumber=" + phoneNumber +
