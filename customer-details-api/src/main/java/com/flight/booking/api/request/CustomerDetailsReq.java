@@ -7,8 +7,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class CustomerDetailsReq {
-    @NotNull(message="Name cannot be null")
+    @NotBlank(message="Name can't be blank.")
     private String customerName;
+    @NotBlank
     @Email(message="Email isn't proper.")
     private String customerEmail;
     @Pattern(regexp = "^(\\d{3}[- ]?){2}\\d{4}$",message = "Phone number isn't proper")
