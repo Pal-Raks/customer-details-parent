@@ -1,10 +1,11 @@
 package com.flight.booking;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class})
 //@EntityScan(basePackages = {"com.flight.booking.*"})
 //@ComponentScan(basePackages = {"com.flight.booking.*"}) //if its not in package format properly
 public class CustomerDetailsApplication {

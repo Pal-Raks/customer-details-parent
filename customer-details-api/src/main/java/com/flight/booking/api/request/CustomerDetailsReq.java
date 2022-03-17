@@ -11,8 +11,8 @@ public class CustomerDetailsReq {
     private String customerName;
     @Email(message="Email isn't proper.")
     private String customerEmail;
-    @Pattern(regexp = "^(\\d{3}[- ]?){2}\\d{4}$",message = "Phonee number isn't proper")
-    private Integer phoneNumber;
+    @Pattern(regexp = "^(\\d{3}[- ]?){2}\\d{4}$",message = "Phone number isn't proper")
+    private String phoneNumber;
     @NotBlank(message="Password can't be blank.")
     private String password;
 
@@ -32,11 +32,11 @@ public class CustomerDetailsReq {
         this.customerEmail = customerEmail;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -53,7 +53,7 @@ public class CustomerDetailsReq {
         return "CustomerDetailsReq{" +
                 "customerName='" + customerName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

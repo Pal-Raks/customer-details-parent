@@ -1,6 +1,8 @@
 package com.flight.booking.api;
 
 import com.flight.booking.api.request.CustomerDetailsReq;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,10 +14,10 @@ import javax.validation.Valid;
 @RequestMapping("customer")
 public interface CustomerDetailsApi {
 
-    @GetMapping("/details")
-    public String getCustomerDetails();
+    @GetMapping(value = "/details",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> getCustomerDetails();
 
-    @PostMapping("/registration")
-    public String createCustomerDetails(@RequestBody @Valid CustomerDetailsReq customerDetailsReq);
+    @PostMapping(value = "/registration",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> createCustomerDetails(@RequestBody @Valid CustomerDetailsReq customerDetailsReq);
 
 }

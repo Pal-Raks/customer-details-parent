@@ -3,6 +3,8 @@ package com.flight.booking.application.model;
 
 public class CustomerDetails {
 
+    private String customerId;
+
     private String customerName;
 
     private String customerEmail;
@@ -10,6 +12,15 @@ public class CustomerDetails {
     private Integer phoneNumber;
 
     private String password;
+
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 
     public String getCustomerName() {
         return customerName;
@@ -45,8 +56,9 @@ public class CustomerDetails {
 
     @Override
     public String toString() {
-        return "CustomerDetailsReq{" +
-                "customerName='" + customerName + '\'' +
+        return "CustomerDetails{" +
+                "customerId='" + customerId + '\'' +
+                ", customerName='" + customerName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", password='" + password + '\'' +

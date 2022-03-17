@@ -4,6 +4,7 @@ import com.flight.booking.api.request.CustomerDetailsReq;
 import com.flight.booking.application.CustomerDetailsApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,11 +21,11 @@ public class CustomerDetailsApiImpl implements CustomerDetailsApi {
 
 
 
-    public String getCustomerDetails(){
-        return this.customerDetailsApplicationImpl.getCustomerDetails();
+    public ResponseEntity<String> getCustomerDetails(){
+        return ResponseEntity.status(HttpStatus.OK).body(this.customerDetailsApplicationImpl.getCustomerDetails());
     }
 
-    public String createCustomerDetails(@RequestBody @Valid CustomerDetailsReq customerDetailsReq){
-        return this.customerDetailsApplicationImpl.getCustomerDetails();
+    public ResponseEntity<String> createCustomerDetails(@RequestBody @Valid CustomerDetailsReq customerDetailsReq){
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.customerDetailsApplicationImpl.getCustomerDetails());
     }
 }
