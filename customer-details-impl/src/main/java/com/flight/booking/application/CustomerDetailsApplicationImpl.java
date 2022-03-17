@@ -18,8 +18,14 @@ public class CustomerDetailsApplicationImpl implements CustomerDetailsApplicatio
     }
 
     @Override
-    public String getCustomerDetails() {
-        return "Test";
+    public CustomerDetails getCustomerDetails(String customerId) {
+        CustomerEntity customerEntity = this.customerDetailsRepo.findByCustomerId(customerId);
+        CustomerDetails customerDetails = new CustomerDetails();
+        customerDetails.setCustomerName(customerEntity.getCustomerName());
+        customerDetails.setCustomerEmail(customerEntity.getCustomerEmail());
+        customerDetails.setCustomerId(customerEntity.getCustomerId());
+        customerDetails.setPhoneNumber(customerEntity.getPhoneNumber());
+        return customerDetails;
     }
 
     @Override

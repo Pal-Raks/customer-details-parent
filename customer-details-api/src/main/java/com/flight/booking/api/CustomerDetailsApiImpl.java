@@ -1,6 +1,7 @@
 package com.flight.booking.api;
 
 import com.flight.booking.api.request.CustomerDetailsReq;
+import com.flight.booking.api.request.UpdateCustomerDetailsReq;
 import com.flight.booking.application.CustomerDetailsApplication;
 import com.flight.booking.application.model.CustomerDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,11 @@ public class CustomerDetailsApiImpl implements CustomerDetailsApi {
 
 
 
-    public ResponseEntity<String> getCustomerDetails(){
-        return ResponseEntity.status(HttpStatus.OK).body(this.customerDetailsApplicationImpl.getCustomerDetails());
+    public ResponseEntity getCustomerDetails(String customerId){
+        return ResponseEntity.status(HttpStatus.OK).body(this.customerDetailsApplicationImpl.getCustomerDetails(customerId));
     }
 
-    public ResponseEntity<String> createCustomerDetails(@RequestBody @Valid CustomerDetailsReq customerDetailsReq){
+    public ResponseEntity<String> createCustomerDetails(CustomerDetailsReq customerDetailsReq){
         CustomerDetails customerDetails= new CustomerDetails();
         customerDetails.setCustomerEmail(customerDetails.getCustomerEmail());
         customerDetails.setCustomerName(customerDetailsReq.getCustomerName());
@@ -37,5 +38,17 @@ public class CustomerDetailsApiImpl implements CustomerDetailsApi {
         customerDetails.setPhoneNumber(Integer.getInteger(customerDetailsReq.getPhoneNumber()));
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(this.customerDetailsApplicationImpl.createCustomerDetails(customerDetails));
+    }
+
+    public ResponseEntity<String> updateCustomerDetails(UpdateCustomerDetailsReq updateCustomerDetailsReq, String customerId){
+//        CustomerDetails customerDetails= new CustomerDetails();
+//        customerDetails.setCustomerEmail(customerDetails.getCustomerEmail());
+//        customerDetails.setCustomerName(customerDetailsReq.getCustomerName());
+//        customerDetails.setCustomerId(UUID.randomUUID().toString());
+//        customerDetails.setPassword(bCryptPasswordEncoder.encode(customerDetailsReq.getPassword()));
+//        customerDetails.setPhoneNumber(Integer.getInteger(customerDetailsReq.getPhoneNumber()));
+//        return ResponseEntity.status(HttpStatus.CREATED)
+//                .body(this.customerDetailsApplicationImpl.createCustomerDetails(customerDetails));
+        return null;
     }
 }

@@ -4,6 +4,6 @@ import com.flight.booking.application.model.CustomerDetails;
 
 
 public interface CustomerDetailsApplication {
-     String getCustomerDetails();
+     CustomerDetails getCustomerDetails(String customerId);
      String createCustomerDetails(CustomerDetails customerDetails);
 }
