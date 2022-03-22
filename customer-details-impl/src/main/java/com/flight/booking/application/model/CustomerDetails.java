@@ -9,7 +9,7 @@ public class CustomerDetails {
 
     private String customerEmail;
 
-    private Integer phoneNumber;
+    private Long phoneNumber;
 
     private String password;
 
@@ -38,11 +38,11 @@ public class CustomerDetails {
         this.customerEmail = customerEmail;
     }
 
-    public Integer getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

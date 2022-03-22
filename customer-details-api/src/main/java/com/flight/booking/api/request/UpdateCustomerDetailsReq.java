@@ -1,15 +1,16 @@
 package com.flight.booking.api.request;
 
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotNull;
 
 public class UpdateCustomerDetailsReq {
     @NotBlank(message="Name can't be blank.")
     private String customerName;
-    @NotBlank(message="Password can't be blank.")
+    @NotNull(message="Password can't be blank.")
     private String password;
+    @NotBlank(message="Password can't be blank.")
+    private String phoneNumber;
 
     public String getCustomerName() {
         return customerName;
@@ -19,7 +20,6 @@ public class UpdateCustomerDetailsReq {
         this.customerName = customerName;
     }
 
-
     public String getPassword() {
         return password;
     }
@@ -28,11 +28,20 @@ public class UpdateCustomerDetailsReq {
         this.password = password;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public String toString() {
-        return "CustomerDetailsReq{" +
+        return "UpdateCustomerDetailsReq{" +
                 "customerName='" + customerName + '\'' +
                 ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

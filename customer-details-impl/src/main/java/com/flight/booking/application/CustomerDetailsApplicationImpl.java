@@ -35,6 +35,21 @@ public class CustomerDetailsApplicationImpl implements CustomerDetailsApplicatio
         customerEntity.setCustomerEmail(customerDetails.getCustomerEmail());
         customerEntity.setCustomerId(customerDetails.getCustomerId());
         customerEntity.setPhoneNumber(customerDetails.getPhoneNumber());
-        return this.customerDetailsRepo.save(customerEntity).getCustomerId();//Just holding to remember need to change this
+        customerEntity.setEncryptedPassword(customerDetails.getPassword());
+        customerEntity= this.customerDetailsRepo.save(customerEntity);
+        return customerEntity.getCustomerId();
+    }
+
+    @Override
+    public CustomerDetails updateCustomerDetails(CustomerDetails customerDetails, String customerId) {
+        CustomerEntity customerEntity = this.customerDetailsRepo.findByCustomerId(customerId);
+        customerEntity.setCustomerName(customerDetails.getCustomerName());
+        customerEntity.setCustomerEmail(customerDetails.getCustomerEmail());
+        customerEntity.setCustomerId(customerDetails.getCustomerId());
+        customerEntity.setPhoneNumber(customerDetails.getPhoneNumber());
+        customerEntity.setEncryptedPassword(customerDetails.getPassword());
+        customerEntity= this.customerDetailsRepo.save(customerEntity);
+
+        return null;//Just holding to remember need to change this
     }
 }

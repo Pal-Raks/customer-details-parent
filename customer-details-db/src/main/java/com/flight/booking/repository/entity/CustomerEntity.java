@@ -27,7 +27,7 @@ public class CustomerEntity implements Serializable {
     @Column(nullable=false, length=120, unique=true, name = "customer_email")
     private String customerEmail;
     @Column(nullable=false, unique=true, name="phone_number")
-    private Integer phoneNumber;
+    private long phoneNumber;
 
     @Column(nullable=false, unique=true,name ="encrypted_password")
     private String encryptedPassword;
@@ -56,11 +56,11 @@ public class CustomerEntity implements Serializable {
         this.customerEmail = customerEmail;
     }
 
-    public Integer getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

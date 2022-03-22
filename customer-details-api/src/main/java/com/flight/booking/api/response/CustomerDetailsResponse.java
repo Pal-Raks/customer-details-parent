@@ -1,17 +1,14 @@
 package com.flight.booking.api.response;
 
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
 public class CustomerDetailsResponse {
 
     private String customerName;
     private String customerEmail;
-    private Integer phoneNumber;
-    private String password;
+    private String phoneNumber;
+    private String customerId;
+
+    public CustomerDetailsResponse() { //sometimes jackson binding gives error so need to use
+    }
 
     public String getCustomerName() {
         return customerName;
@@ -29,20 +26,20 @@ public class CustomerDetailsResponse {
         this.customerEmail = customerEmail;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getPassword() {
-        return password;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     @Override
@@ -51,7 +48,7 @@ public class CustomerDetailsResponse {
                 "customerName='" + customerName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
                 ", phoneNumber=" + phoneNumber +
-                ", password='" + password + '\'' +
+                ", customerId='" + customerId + '\'' +
                 '}';
     }
 }

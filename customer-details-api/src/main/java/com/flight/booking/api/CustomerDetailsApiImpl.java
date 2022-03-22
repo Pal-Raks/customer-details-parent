@@ -2,53 +2,66 @@ package com.flight.booking.api;
 
 import com.flight.booking.api.request.CustomerDetailsReq;
 import com.flight.booking.api.request.UpdateCustomerDetailsReq;
+import com.flight.booking.api.response.CustomerDetailsResponse;
 import com.flight.booking.application.CustomerDetailsApplication;
 import com.flight.booking.application.model.CustomerDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
 public class CustomerDetailsApiImpl implements CustomerDetailsApi {
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+   // private BCryptPasswordEncoder bCryptPasswordEncoder;
     private CustomerDetailsApplication customerDetailsApplicationImpl;
     @Autowired
     public void setCustomerDetailsApplicationImpl(CustomerDetailsApplication customerDetailsApplicationImpl) {
         this.customerDetailsApplicationImpl = customerDetailsApplicationImpl;
     }
+    @Bean
+    private BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder(15);
+    }
 
 
-
-    public ResponseEntity getCustomerDetails(String customerId){
-        return ResponseEntity.status(HttpStatus.OK).body(this.customerDetailsApplicationImpl.getCustomerDetails(customerId));
+    public ResponseEntity<CustomerDetailsResponse> getCustomerDetails(String customerId){
+        CustomerDetails customerDetails=this.customerDetailsApplicationImpl.getCustomerDetails(customerId);
+        CustomerDetailsResponse customerDetailsResponse = new CustomerDetailsResponse();
+        customerDetailsResponse.setCustomerName(customerDetails.getCustomerName());
+        customerDetailsResponse.setCustomerEmail(customerDetails.getCustomerEmail());
+        customerDetailsResponse.setPhoneNumber(String.valueOf(customerDetails.getPhoneNumber()));
+        customerDetailsResponse.setCustomerId(customerDetails.getCustomerId());
+        return ResponseEntity.status(HttpStatus.OK).body(customerDetailsResponse);
     }
 
     public ResponseEntity<String> createCustomerDetails(CustomerDetailsReq customerDetailsReq){
         CustomerDetails customerDetails= new CustomerDetails();
-        customerDetails.setCustomerEmail(customerDetails.getCustomerEmail());
+        customerDetails.setCustomerEmail(customerDetailsReq.getCustomerEmail());
         customerDetails.setCustomerName(customerDetailsReq.getCustomerName());
         customerDetails.setCustomerId(UUID.randomUUID().toString());
-        customerDetails.setPassword(bCryptPasswordEncoder.encode(customerDetailsReq.getPassword()));
-        customerDetails.setPhoneNumber(Integer.getInteger(customerDetailsReq.getPhoneNumber()));
+        customerDetails.setPhoneNumber(Long.parseLong(customerDetailsReq.getPhoneNumber()));
+        customerDetails.setPassword(bCryptPasswordEncoder().encode(customerDetailsReq.getPassword()));
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(this.customerDetailsApplicationImpl.createCustomerDetails(customerDetails));
     }
 
-    public ResponseEntity<String> updateCustomerDetails(UpdateCustomerDetailsReq updateCustomerDetailsReq, String customerId){
-//        CustomerDetails customerDetails= new CustomerDetails();
-//        customerDetails.setCustomerEmail(customerDetails.getCustomerEmail());
-//        customerDetails.setCustomerName(customerDetailsReq.getCustomerName());
-//        customerDetails.setCustomerId(UUID.randomUUID().toString());
-//        customerDetails.setPassword(bCryptPasswordEncoder.encode(customerDetailsReq.getPassword()));
-//        customerDetails.setPhoneNumber(Integer.getInteger(customerDetailsReq.getPhoneNumber()));
-//        return ResponseEntity.status(HttpStatus.CREATED)
-//                .body(this.customerDetailsApplicationImpl.createCustomerDetails(customerDetails));
-        return null;
+    @Override
+    public ResponseEntity<CustomerDetailsResponse> updateCustomerDetails(UpdateCustomerDetailsReq updateCustomerDetailsReq, String customerId){
+        CustomerDetails customerDetails= new CustomerDetails();
+        customerDetails.setPhoneNumber(Long.parseLong(updateCustomerDetailsReq.getPhoneNumber()));
+        customerDetails.setCustomerName(updateCustomerDetailsReq.getCustomerName());
+        this.customerDetailsApplicationImpl.updateCustomerDetails(customerDetails,customerId);
+        CustomerDetails customerDetailsPostUpdate=this.customerDetailsApplicationImpl.getCustomerDetails(customerId);
+        CustomerDetailsResponse customerDetailsResponse = new CustomerDetailsResponse();
+        customerDetailsResponse.setCustomerName(customerDetailsPostUpdate.getCustomerName());
+        customerDetailsResponse.setCustomerEmail(customerDetailsPostUpdate.getCustomerEmail());
+        customerDetailsResponse.setPhoneNumber(String.valueOf(customerDetailsPostUpdate.getPhoneNumber()));
+        customerDetailsResponse.setCustomerId(customerDetailsPostUpdate.getCustomerId());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(customerDetailsResponse);
     }
 }

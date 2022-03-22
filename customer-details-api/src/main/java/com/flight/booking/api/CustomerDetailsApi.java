@@ -2,6 +2,7 @@ package com.flight.booking.api;
 
 import com.flight.booking.api.request.CustomerDetailsReq;
 import com.flight.booking.api.request.UpdateCustomerDetailsReq;
+import com.flight.booking.api.response.CustomerDetailsResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +19,10 @@ import javax.validation.Valid;
 public interface CustomerDetailsApi {
 
     @GetMapping(value = "/details/{customerId}",produces = {
-            MediaType.APPLICATION_XML_VALUE,
-            MediaType.APPLICATION_JSON_VALUE
+            MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE
     })
-    ResponseEntity<String> getCustomerDetails(@PathVariable String customerId);
+    ResponseEntity<CustomerDetailsResponse> getCustomerDetails(@PathVariable String customerId);
 
     @PostMapping(value = "/registration",consumes = {
             MediaType.APPLICATION_XML_VALUE,
@@ -30,13 +31,13 @@ public interface CustomerDetailsApi {
     ResponseEntity<String> createCustomerDetails(@RequestBody @Valid CustomerDetailsReq customerDetailsReq);
 
     @PutMapping(value = "/details/{customerId}",consumes =  {
-            MediaType.APPLICATION_XML_VALUE,
-            MediaType.APPLICATION_JSON_VALUE
+            MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE
     },
             produces =  {
-                    MediaType.APPLICATION_XML_VALUE,
-                    MediaType.APPLICATION_JSON_VALUE
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE
             } )
-    ResponseEntity<String> updateCustomerDetails(@RequestBody @Valid UpdateCustomerDetailsReq updateCustomerDetailsReq, @PathVariable String customerId);
+    ResponseEntity<CustomerDetailsResponse> updateCustomerDetails(@RequestBody @Valid UpdateCustomerDetailsReq updateCustomerDetailsReq, @PathVariable String customerId);
 
 }
