@@ -49,7 +49,10 @@ public class CustomerDetailsApplicationImpl implements CustomerDetailsApplicatio
         customerEntity.setPhoneNumber(customerDetails.getPhoneNumber());
         customerEntity.setEncryptedPassword(customerDetails.getPassword());
         customerEntity= this.customerDetailsRepo.save(customerEntity);
-
-        return null;//Just holding to remember need to change this
+        customerDetails.setCustomerName(customerEntity.getCustomerName());
+        customerDetails.setCustomerEmail(customerEntity.getCustomerEmail());
+        customerDetails.setCustomerId(customerEntity.getCustomerId());
+        customerDetails.setPhoneNumber(customerEntity.getPhoneNumber());
+        return customerDetails;
     }
 }
