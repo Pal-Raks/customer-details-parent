@@ -27,28 +27,6 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.6.6</version>
         </dependency>
- <!--   AS with spring boot 2.6.* version it is still a bug and abundoned by springfox
-      <dependency>
-     <groupId>io.springfox</groupId>
-     <artifactId>springfox-boot-starter</artifactId>
-     <version>3.0.0</version>
-   </dependency>
-   <dependency>
-     <groupId>io.springfox</groupId>
-     <artifactId>springfox-swagger2</artifactId>
-     <version>3.0.0</version>
-    </dependency>
-     <dependency>
-     <groupId>io.springfox</groupId>
-     <artifactId>springfox-swagger-ui</artifactId>
-     <version>3.0.0</version>
-     </dependency>-->
-
-        <!--        <dependency>Not required but if data binding issue comes then needs to add -->
-        <!--            <groupId>com.fasterxml.jackson.dataformat</groupId>-->
-        <!--            <artifactId>jackson-dataformat-xml</artifactId>-->
-        <!--            <version>2.9.8</version>-->
-        <!--        </dependency>-->
     </dependencies>
 
 </project>
