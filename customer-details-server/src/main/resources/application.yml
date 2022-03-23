@@ -1,3 +1,6 @@
 spring:
   profiles:
     active: dev
+ # main:
+#    allow-circular-references: true -->lower version of swagger got circular dependency injection to fix needed that,
+  #but I changed to old version

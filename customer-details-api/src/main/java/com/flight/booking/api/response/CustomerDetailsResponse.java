@@ -1,5 +1,6 @@
 package com.flight.booking.api.response;
 
+//@ApiModel
 public class CustomerDetailsResponse {
 
     private String customerName;

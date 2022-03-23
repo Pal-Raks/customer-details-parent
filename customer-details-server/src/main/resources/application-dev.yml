@@ -23,3 +23,6 @@ Spring:
     console:
       enabled: true
       path: /h2
+springdoc:
+  api-docs:
+    path: /customer-details

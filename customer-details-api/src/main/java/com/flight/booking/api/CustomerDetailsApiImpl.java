@@ -55,13 +55,17 @@ public class CustomerDetailsApiImpl implements CustomerDetailsApi {
         CustomerDetails customerDetails= new CustomerDetails();
         customerDetails.setPhoneNumber(Long.parseLong(updateCustomerDetailsReq.getPhoneNumber()));
         customerDetails.setCustomerName(updateCustomerDetailsReq.getCustomerName());
-        this.customerDetailsApplicationImpl.updateCustomerDetails(customerDetails,customerId);
-        CustomerDetails customerDetailsPostUpdate=this.customerDetailsApplicationImpl.getCustomerDetails(customerId);
+        CustomerDetails customerDetailsPostUpdate=this.customerDetailsApplicationImpl.updateCustomerDetails(customerDetails,customerId);
         CustomerDetailsResponse customerDetailsResponse = new CustomerDetailsResponse();
         customerDetailsResponse.setCustomerName(customerDetailsPostUpdate.getCustomerName());
         customerDetailsResponse.setCustomerEmail(customerDetailsPostUpdate.getCustomerEmail());
         customerDetailsResponse.setPhoneNumber(String.valueOf(customerDetailsPostUpdate.getPhoneNumber()));
         customerDetailsResponse.setCustomerId(customerDetailsPostUpdate.getCustomerId());
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(customerDetailsResponse);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteCustomerDetailsByVustomerId(String customerId) {
+        return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted customer"+customerId);
     }
 }
