@@ -36,23 +36,36 @@ public class CustomerDetailsApplicationImpl implements CustomerDetailsApplicatio
         customerEntity.setCustomerId(customerDetails.getCustomerId());
         customerEntity.setPhoneNumber(customerDetails.getPhoneNumber());
         customerEntity.setEncryptedPassword(customerDetails.getPassword());
-        customerEntity= this.customerDetailsRepo.save(customerEntity);
+        customerEntity = this.customerDetailsRepo.save(customerEntity);
         return customerEntity.getCustomerId();
     }
 
     @Override
     public CustomerDetails updateCustomerDetails(CustomerDetails customerDetails, String customerId) {
         CustomerEntity customerEntity = this.customerDetailsRepo.findByCustomerId(customerId);
-        customerEntity.setCustomerName(customerDetails.getCustomerName());
-        customerEntity.setCustomerEmail(customerDetails.getCustomerEmail());
-        customerEntity.setCustomerId(customerDetails.getCustomerId());
-        customerEntity.setPhoneNumber(customerDetails.getPhoneNumber());
-        customerEntity.setEncryptedPassword(customerDetails.getPassword());
-        customerEntity= this.customerDetailsRepo.save(customerEntity);
+        if (customerEntity == null) {
+            return null;
+        }
+        if (customerDetails.getCustomerName() != null && !customerDetails.getCustomerName().isEmpty()) {
+            customerEntity.setCustomerName(customerDetails.getCustomerName());
+        }
+        if (customerDetails.getPhoneNumber() != null) {
+            customerEntity.setPhoneNumber(customerDetails.getPhoneNumber());
+        }
+        if (customerDetails.getPassword() != null && !customerDetails.getPassword().isEmpty()) {
+            customerEntity.setEncryptedPassword(customerDetails.getPassword());
+        }
+        customerEntity = this.customerDetailsRepo.save(customerEntity);
         customerDetails.setCustomerName(customerEntity.getCustomerName());
         customerDetails.setCustomerEmail(customerEntity.getCustomerEmail());
         customerDetails.setCustomerId(customerEntity.getCustomerId());
         customerDetails.setPhoneNumber(customerEntity.getPhoneNumber());
         return customerDetails;
+    }
+
+    @Override
+    public String deleteCustomerByCustomerId(String customerId) {
+        long deletedRowsCount = this.customerDetailsRepo.deleteByCustomerId(customerId);
+        return deletedRowsCount>0?"Success":"Entity Not found";
     }
 }

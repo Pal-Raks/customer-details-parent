@@ -50,11 +50,11 @@ public interface CustomerDetailsApi {
             } )
     ResponseEntity<CustomerDetailsResponse> updateCustomerDetails(@RequestBody @Valid UpdateCustomerDetailsReq updateCustomerDetailsReq, @PathVariable String customerId);
 
-    @Tag(name = "deleteCustomerDetails")
+    @Tag(name = "deleteCustomerDetailsByCustomerId")
     @DeleteMapping(value = "/delete/{customerId}", consumes =  {
             MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE
     } )
-    ResponseEntity<String> deleteCustomerDetailsByVustomerId(@PathVariable String customerId);
+    ResponseEntity<String> deleteCustomerByCustomerId(@PathVariable String customerId);
 
 }

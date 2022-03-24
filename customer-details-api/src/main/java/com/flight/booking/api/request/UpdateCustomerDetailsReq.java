@@ -1,15 +1,8 @@
 package com.flight.booking.api.request;
 
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 public class UpdateCustomerDetailsReq {
-    @NotBlank(message="Name can't be blank.")
     private String customerName;
-    @NotNull(message="Password can't be blank.")
     private String password;
-    @NotBlank(message="Password can't be blank.")
     private String phoneNumber;
 
     public String getCustomerName() {
