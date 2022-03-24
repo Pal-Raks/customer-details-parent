@@ -23,15 +23,8 @@ import javax.validation.Valid;
 
 @RequestMapping("customer")
 @OpenAPIDefinition(info = @Info(title = "Customer details API", version = "1.0", description = "Customer details Information"))
-
 public interface CustomerDetailsApi {
 
-//    @ApiOperation(value = "getCustomer", nickname = "getCustomer")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 500, message = "Server error"),
-//            @ApiResponse(code = 200, message = "Successful retrieval",
-//                    response = CustomerDetailsResponse.class) })
-//    @RequestMapping(method = RequestMethod.GET, value = "/customer/details/{customerId}")
     @Tag(name = "getCustomerDetailsByCustomerId")
     @GetMapping(value = "/details/{customerId}",produces = {
             MediaType.APPLICATION_JSON_VALUE,
@@ -39,12 +32,14 @@ public interface CustomerDetailsApi {
     })
     ResponseEntity<CustomerDetailsResponse> getCustomerDetails(@PathVariable String customerId);
 
+    @Tag(name = "createCustomerDetails")
     @PostMapping(value = "/registration",consumes = {
             MediaType.APPLICATION_XML_VALUE,
             MediaType.APPLICATION_JSON_VALUE
     })
     ResponseEntity<String> createCustomerDetails(@RequestBody @Valid CustomerDetailsReq customerDetailsReq);
 
+    @Tag(name = "updateCustomerDetails")
     @PutMapping(value = "/details/{customerId}",consumes =  {
             MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE
@@ -55,11 +50,11 @@ public interface CustomerDetailsApi {
             } )
     ResponseEntity<CustomerDetailsResponse> updateCustomerDetails(@RequestBody @Valid UpdateCustomerDetailsReq updateCustomerDetailsReq, @PathVariable String customerId);
 
-
+    @Tag(name = "deleteCustomerDetailsByCustomerId")
     @DeleteMapping(value = "/delete/{customerId}", consumes =  {
             MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE
     } )
-    ResponseEntity<String> deleteCustomerDetailsByVustomerId(@PathVariable String customerId);
+    ResponseEntity<String> deleteCustomerByCustomerId(@PathVariable String customerId);
 
 }

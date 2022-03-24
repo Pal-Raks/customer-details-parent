@@ -16,7 +16,6 @@ import java.util.UUID;
 
 @RestController
 public class CustomerDetailsApiImpl implements CustomerDetailsApi {
-   // private BCryptPasswordEncoder bCryptPasswordEncoder;
     private CustomerDetailsApplication customerDetailsApplicationImpl;
     @Autowired
     public void setCustomerDetailsApplicationImpl(CustomerDetailsApplication customerDetailsApplicationImpl) {
@@ -29,12 +28,17 @@ public class CustomerDetailsApiImpl implements CustomerDetailsApi {
 
 
     public ResponseEntity<CustomerDetailsResponse> getCustomerDetails(String customerId){
-        CustomerDetails customerDetails=this.customerDetailsApplicationImpl.getCustomerDetails(customerId);
-        CustomerDetailsResponse customerDetailsResponse = new CustomerDetailsResponse();
-        customerDetailsResponse.setCustomerName(customerDetails.getCustomerName());
-        customerDetailsResponse.setCustomerEmail(customerDetails.getCustomerEmail());
-        customerDetailsResponse.setPhoneNumber(String.valueOf(customerDetails.getPhoneNumber()));
-        customerDetailsResponse.setCustomerId(customerDetails.getCustomerId());
+        CustomerDetailsResponse customerDetailsResponse = null;
+        try {
+            CustomerDetails customerDetails=this.customerDetailsApplicationImpl.getCustomerDetails(customerId);
+            customerDetailsResponse = new CustomerDetailsResponse();
+            customerDetailsResponse.setCustomerName(customerDetails.getCustomerName());
+            customerDetailsResponse.setCustomerEmail(customerDetails.getCustomerEmail());
+            customerDetailsResponse.setPhoneNumber(String.valueOf(customerDetails.getPhoneNumber()));
+            customerDetailsResponse.setCustomerId(customerDetails.getCustomerId());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(customerDetailsResponse);
+        }
         return ResponseEntity.status(HttpStatus.OK).body(customerDetailsResponse);
     }
 
@@ -53,19 +57,38 @@ public class CustomerDetailsApiImpl implements CustomerDetailsApi {
     @Override
     public ResponseEntity<CustomerDetailsResponse> updateCustomerDetails(UpdateCustomerDetailsReq updateCustomerDetailsReq, String customerId){
         CustomerDetails customerDetails= new CustomerDetails();
-        customerDetails.setPhoneNumber(Long.parseLong(updateCustomerDetailsReq.getPhoneNumber()));
-        customerDetails.setCustomerName(updateCustomerDetailsReq.getCustomerName());
-        CustomerDetails customerDetailsPostUpdate=this.customerDetailsApplicationImpl.updateCustomerDetails(customerDetails,customerId);
-        CustomerDetailsResponse customerDetailsResponse = new CustomerDetailsResponse();
-        customerDetailsResponse.setCustomerName(customerDetailsPostUpdate.getCustomerName());
-        customerDetailsResponse.setCustomerEmail(customerDetailsPostUpdate.getCustomerEmail());
-        customerDetailsResponse.setPhoneNumber(String.valueOf(customerDetailsPostUpdate.getPhoneNumber()));
-        customerDetailsResponse.setCustomerId(customerDetailsPostUpdate.getCustomerId());
+        if(updateCustomerDetailsReq.getPhoneNumber()!=null &&
+                !updateCustomerDetailsReq.getPhoneNumber().isEmpty())
+        {
+            customerDetails.setPhoneNumber(Long.parseLong
+                    (updateCustomerDetailsReq.getPhoneNumber()));
+        }
+        if(updateCustomerDetailsReq.getCustomerName()!=null
+                && !updateCustomerDetailsReq.getCustomerName().isEmpty()) {
+            customerDetails.setCustomerName(updateCustomerDetailsReq.getCustomerName());
+        }
+        if(updateCustomerDetailsReq.getPassword()!=null &&
+                !updateCustomerDetailsReq.getPassword().isEmpty()) {
+            customerDetails.setPassword(bCryptPasswordEncoder().encode(updateCustomerDetailsReq.getPassword()));
+        }
+
+        CustomerDetailsResponse customerDetailsResponse = null;
+        try {
+            CustomerDetails customerDetailsPostUpdate=this.customerDetailsApplicationImpl.updateCustomerDetails(customerDetails,customerId);
+            customerDetailsResponse = new CustomerDetailsResponse();
+            customerDetailsResponse.setCustomerName(customerDetailsPostUpdate.getCustomerName());
+            customerDetailsResponse.setCustomerEmail(customerDetailsPostUpdate.getCustomerEmail());
+            customerDetailsResponse.setPhoneNumber(String.valueOf(customerDetailsPostUpdate.getPhoneNumber()));
+            customerDetailsResponse.setCustomerId(customerDetailsPostUpdate.getCustomerId());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(customerDetailsResponse);
+        }
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(customerDetailsResponse);
     }
 
     @Override
-    public ResponseEntity<String> deleteCustomerDetailsByVustomerId(String customerId) {
-        return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted customer"+customerId);
+    public ResponseEntity<String> deleteCustomerByCustomerId(String customerId) {
+        String response=this.customerDetailsApplicationImpl.deleteCustomerByCustomerId(customerId);
+        return ResponseEntity.status(HttpStatus.OK).body(response+" : "+customerId);
     }
 }
