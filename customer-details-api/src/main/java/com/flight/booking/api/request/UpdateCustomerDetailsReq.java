@@ -1,5 +1,7 @@
 package com.flight.booking.api.request;
 
+import java.util.Objects;
+
 public class UpdateCustomerDetailsReq {
     private String customerName;
     private String password;
@@ -27,6 +29,19 @@ public class UpdateCustomerDetailsReq {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UpdateCustomerDetailsReq that = (UpdateCustomerDetailsReq) o;
+        return Objects.equals(customerName, that.customerName) && Objects.equals(password, that.password) && Objects.equals(phoneNumber, that.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customerName, password, phoneNumber);
     }
 
     @Override
