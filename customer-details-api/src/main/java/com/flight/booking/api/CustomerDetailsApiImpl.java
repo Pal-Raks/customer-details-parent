@@ -25,8 +25,6 @@ public class CustomerDetailsApiImpl implements CustomerDetailsApi {
     private BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder(15);
     }
-
-
     public ResponseEntity<CustomerDetailsResponse> getCustomerDetails(String customerId){
         CustomerDetailsResponse customerDetailsResponse = null;
         try {
